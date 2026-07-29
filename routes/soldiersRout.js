@@ -9,5 +9,5 @@ route.get("/:soldierID/benefits", ()=>{})
 
 route.patch("/:soldierID/benefits", ()=>{})
 
-
+ 
 export default route
