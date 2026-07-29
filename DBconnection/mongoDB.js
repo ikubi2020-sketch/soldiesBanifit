@@ -10,6 +10,9 @@ try {
     console.log(error)
 }
 
+console.log("mongo is connected");
+
+
 const db = client.db("welfare record")
 
 export default db

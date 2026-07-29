@@ -5,4 +5,7 @@ const client = new SupabaseClient(
     process.env.SUPA_URL,
     process.env.SUPA_KEY)
 
+console.log("supabase is connected");
+
+
 export default client
