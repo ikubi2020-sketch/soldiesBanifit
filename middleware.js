@@ -10,7 +10,7 @@ function errorHandler(err, res , req , next) {
     const statusCode = err.statusCode || 500
     console.error(err.message, statusCode)
 
-    res.statusCode(statusCode).json({message : "something went wrong"})
+    res.status(statusCode).json({"message" : "something went wrong"})
 }
 
 const validBenefitRequest = zod.object({

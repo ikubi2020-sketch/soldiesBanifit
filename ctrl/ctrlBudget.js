@@ -15,9 +15,8 @@ async function addUnitBudgetCtrl(req, res) {
 async function getBenifitsByParamCtrl(req, res) {
     console.log("enter getBenifitsByParamCtrl")
     try {
-        console.log(req.query)
         const result = await budgetService.getBenifitsServ(req.query)
-        if(!result) {res.status(200).json({message : "success" , "result" : "nothing mech your query"})}
+        if(result.length === 0) {res.status(200).json({message : "success" , "result" : "nothing mech your query"})}
         res.status(200).json({message : "success" , "result" : result})
     } catch (error) {
         console.log(error)  

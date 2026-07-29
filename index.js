@@ -2,6 +2,7 @@ import express from "express"
 import "dotenv/config"
 import soldierRoute from "./routes/soldiersRout.js"
 import budgetRoute from "./routes/budgetRout.js"
+import middleware from "./middleware.js"
 
 
 
@@ -15,6 +16,7 @@ app.use("/budget", budgetRoute)
 
 app.use("/soldiers", soldierRoute)
 
+app.use(middleware.errorHandler)
 
 app.listen(PORT, ()=>{
     console.log(`server running on port ${PORT}`)
