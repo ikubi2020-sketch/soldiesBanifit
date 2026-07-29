@@ -37,4 +37,6 @@ file mongoDB contains connection to mongo DB
 file supaBaseDB contains connection to supaBase DB
 
 
+directory routes contain all routes
 
+file budgetRoutse deal with all routs dealing with relational DB

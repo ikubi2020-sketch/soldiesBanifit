@@ -36,6 +36,7 @@ async function getBenifitsByParam(myParams) {
         throw error
     }};
 
+    
 
 async function addSpend(spendRequest, id) {
     console.log("enter dal addSpend");
