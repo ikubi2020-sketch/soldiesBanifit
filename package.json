@@ -1,0 +1,29 @@
+{
+  "name": "soldiesbanifit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikubi2020-sketch/soldiesBanifit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/ikubi2020-sketch/soldiesBanifit/issues"
+  },
+  "homepage": "https://github.com/ikubi2020-sketch/soldiesBanifit#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.111.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongodb": "^7.5.0",
+    "zod": "^4.4.3"
+  }
+}
