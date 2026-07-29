@@ -22,6 +22,12 @@ const validBenefitRequest = zod.object({
 })
 
 
+function validBenefitRequestFunc(req, res , next) {
+    const result = validBenefitRequest.safeParse(req.body)
+    if(!result.success) {return res.status(400).json(result.error.flatten().fieldErrors)}
+    next()
+};
+
 const validBudget = zod.object({
     "unit" :zod.string({message : "unit must be a string"}).min(2, "unit must be 2 characters").max(100, "unit must be less then 100 characters"),
     "benefitType" : zod.string({message : "type must be a string"}),
@@ -35,6 +41,6 @@ function validBudgetFunc(req, res , next) {
     next()
 };
 
-const middleware ={ errorHandler, logger, validBenefitRequest, validBudgetFunc}
+const middleware ={ errorHandler, logger, validBenefitRequestFunc, validBudgetFunc}
 
 export default middleware

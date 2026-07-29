@@ -1,3 +1,4 @@
+import { date } from "zod"
 import client from "../DBconnection/supabaseDB.js"
 
 const budgetDb = client
@@ -20,7 +21,7 @@ async function addUnitBudget(budgetRequest) {
     }};
 
 async function getBenifitsByParam(myParams) {
-    console.log("enter dal get");
+    console.log("enter dal getBenifitsByParam");
     const {unit, month, benefit} = myParams
     try {
         const allBenifits = await budgetDb.from("budget_alloction").select("*")
@@ -35,6 +36,25 @@ async function getBenifitsByParam(myParams) {
         throw error
     }};
 
-const budgetDal = {addUnitBudget, getBenifitsByParam}
+
+async function addSpend(spendRequest, id) {
+    console.log("enter dal addSpend");
+    try {
+        const date = new Date
+        const spendBuild = {
+            budgetID = id,
+            amount : spendRequest.amount,
+            createdAT =  date,
+            reseon : spendRequest.reason
+        }
+        spendRequest.createdAT =  date
+        const result =  await budgetDb.from("spend_transaction").insert(spendBuild).select()
+        return result
+    } catch (error) {
+        console.log(error)  
+        throw error
+    }};
+
+const budgetDal = {addUnitBudget, getBenifitsByParam, addSpend}
 
 export default budgetDal
