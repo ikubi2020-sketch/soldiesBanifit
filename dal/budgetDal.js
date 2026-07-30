@@ -75,7 +75,6 @@ async function geAllSpendsById(searchId) {
     console.log("enter dal geAllSpends");
     try {
         const result =  await budgetDb.from("spend_transaction").select().eq("budgetID", searchId)
-        console.log(result.data)
         return result.data
     } catch (error) {
         console.log(error)  

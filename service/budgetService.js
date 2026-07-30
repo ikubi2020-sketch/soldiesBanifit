@@ -28,18 +28,17 @@ async function AddBenifitsServ(spendRequest,id) {
         const result =  await budgetDal.checkForBudgetId(id)
         if(!result) {throw new Error, "not found any budget with this ID"}
         const unitBudget = result[0].allocatedAmount
-        console.log(unitBudget)
         const allUnitSpends = await budgetDal.geAllSpendsById(id)
-        const unitSpending = allUnitSpends.reduce((totalSpending, oneSpend)=>{return totalSpending + oneSpend.amount})
+        const unitSpending = allUnitSpends.reduce(sumSpendingUnit, 0)
         if(unitSpending + spendRequest.amount > unitBudget) {throw new Error, "unit out of budget"}
         const resultBenefit = await budgetDal.addSpend(spendRequest, id)
-        console.log(resultBenefit)
         return resultBenefit
     } catch (error) {
         console.log(error);
         throw error
     }};
 
+function sumSpendingUnit(totalSpending, oneSpend) {return totalSpending + oneSpend.amount}
 
 const budgetService = {addUnitBudgetServ, getBenifitsServ, AddBenifitsServ}
 
