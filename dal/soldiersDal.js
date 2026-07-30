@@ -10,7 +10,7 @@ async function addBenefit(benefitRequest, id) {
         soldierID : id,
         unit : benefitRequest.unit,
         currentBenefitType : benefitRequest.currentBenefitType,
-        history: benefitRequest.history
+        history: myHistory
     }
     const result = await soldierBenefits.insertOne(benefit)
     const insertedBenefit = await soldierBenefits.findOne({_id : result.insertedId})

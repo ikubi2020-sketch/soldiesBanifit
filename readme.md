@@ -60,5 +60,3 @@ every request is going throw the server in file index to the route it requested
 and then going throw middleware if needed and then it going to the controller lair 
 and then it going to the service lair where all logical action are being done 
 an then to the dal lair where the engagement with the DB is being done
-
-
