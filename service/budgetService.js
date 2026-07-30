@@ -12,8 +12,19 @@ async function addUnitBudgetServ (budgetRequest){
 
 async function getBenifitsServ(getParams) {
     try {
-        const result = await budgetDal.getBenifitsByParam(getParams)
-        return result
+        const unitBenifits = await budgetDal.getBenifitsByParam(getParams)
+        const id = unitBenifits[0].id
+        console.log(id)
+        const allUnitSpends = await budgetDal.geAllSpendsById(id)
+        if (!allUnitSpends){
+            unitBenifits[0].spentAmount = 0
+            unitBenifits[0].remainingAmount = unitBenifits[0].allocatedAmount
+            return unitBenifits 
+        }
+        const unitSpending = allUnitSpends.reduce(sumSpendingUnit, 0)
+        unitBenifits[0].spentAmount = unitSpending
+        unitBenifits[0].remainingAmount = unitBenifits[0].allocatedAmount - unitSpending
+        return unitBenifits
     } catch (error) {
         console.log(error);
         throw error
