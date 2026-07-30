@@ -1,7 +1,7 @@
 
 
 
-async function addeBenifit(req, res) {
+async function addBenefit(req, res) {
     console.log("enter getBenifitsByParamCtrl")
     try {
         const id = req.params
