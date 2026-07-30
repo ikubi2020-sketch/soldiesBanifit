@@ -13,9 +13,23 @@ function errorHandler(err, req , res , next) {
     res.status(statusCode).json({success : false , message : "something went wrong"})
 }
 
+
+
+const benefitPeriod = zod.object({
+    "startDate" : zod.date({message : "startDate must be a data"}),
+    "endDate" : zod.date({message : "endDate must be a data"}),
+    "decisionApproved": zod.string({message : "unit must be a string"}),
+    "benefitType" : zod.enum(["giftCard", "diningHall"], {message : " benefitType must be giftCard or diningHall"}),
+    "details" : zod.object()
+    });
+
+
 const validBenefitRequest = zod.object({
-    soldierId
-})
+    "soldierId" : zod.int({message : "soldier ID must be a int"}),
+    "unit" : zod.string({message : "unit must be a string"}).min(2, "unit must be 2 characters").max(100, "unit must be less then 100 characters"),
+    "currentBenefitType" : zod.enum(["giftCard", "diningHall"], {message : " currentBenefitType must be giftCard or diningHall"}),
+    "history" : zod.array(benefitPeriod) 
+    });
 
 function  validBenefitRequestFunc(req, res , next) {
     const result = validBenefitRequest.safeParse(req.body)
