@@ -7,10 +7,10 @@ async function addBenefit(benefitRequest, id) {
     const myHistory = benefitRequest.history
     try {
         const benefit = {
-        soldierID = id,
+        soldierID : id,
         unit : benefitRequest.unit,
         currentBenefitType : benefitRequest.currentBenefitType,
-        history: myHistory
+        history: benefitRequest.history
     }
     const result = await soldierBenefits.insertOne(benefit)
     const insertedBenefit = await soldierBenefits.findOne({_id : result.insertedId})
@@ -19,7 +19,7 @@ async function addBenefit(benefitRequest, id) {
     } catch (error) {
         console.log(error)
         throw error
-    }};
+}};
 
 const dalBenifits = { addBenefit }
 

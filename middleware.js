@@ -9,23 +9,22 @@ function logger(req, res, next) {
 function errorHandler(err, req , res , next) {
     const statusCode = err.statusCode || 500
     console.error(err.message, statusCode);
-
     res.status(statusCode).json({success : false , message : "something went wrong"})
 }
 
 
 
 const benefitPeriod = zod.object({
-    "startDate" : zod.date({message : "startDate must be a data"}),
-    "endDate" : zod.date({message : "endDate must be a data"}),
-    "decisionApproved": zod.string({message : "unit must be a string"}),
+    // "startDate" : zod.date({message : "startDate must be a data"}),
+    // "endDate" : zod.date({message : "endDate must be a data"}),
+    "decisionReason" : zod.string({message : "decisionReason must be a string"}),
+    "decisionApproved": zod.boolean({message : "decisionApproved must be a boolean"}),
     "benefitType" : zod.enum(["giftCard", "diningHall"], {message : " benefitType must be giftCard or diningHall"}),
     "details" : zod.object()
     });
 
 
 const validBenefitRequest = zod.object({
-    "soldierId" : zod.int({message : "soldier ID must be a int"}),
     "unit" : zod.string({message : "unit must be a string"}).min(2, "unit must be 2 characters").max(100, "unit must be less then 100 characters"),
     "currentBenefitType" : zod.enum(["giftCard", "diningHall"], {message : " currentBenefitType must be giftCard or diningHall"}),
     "history" : zod.array(benefitPeriod) 
