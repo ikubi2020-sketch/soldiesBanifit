@@ -1,4 +1,4 @@
-import zod from "zod"
+import zod, { success } from "zod"
 
 function logger(req, res, next) {
     console.log(req.method, req.url)
@@ -6,11 +6,11 @@ function logger(req, res, next) {
 }
 
 
-function errorHandler(err, res , req , next) {
+function errorHandler(err, req , res , next) {
     const statusCode = err.statusCode || 500
-    console.error(err.message, statusCode)
+    console.error(err.message, statusCode);
 
-    res.status(statusCode).json({"message" : "something went wrong"})
+    res.status(statusCode).json({success : false , message : "something went wrong"})
 }
 
 const validBenefitRequest = zod.object({
@@ -41,6 +41,19 @@ function validBudgetFunc(req, res , next) {
     next()
 };
 
-const middleware ={ errorHandler, logger, validBenefitRequestFunc, validBudgetFunc}
+
+const validSpentRequest = zod.object({
+   "amount" : zod.int({message : "amount must be an integer"}),
+   "reason" : zod.string({message : "reason must be a string"}).min(2, "reason must be more then 2 characters")
+})
+
+
+function validSpentRequestFunc(req, res , next) {
+    const result = validSpentRequest.safeParse(req.body)
+    if(!result.success) {return res.status(400).json(result.error.flatten().fieldErrors)}
+    next()
+};
+
+const middleware ={ errorHandler, logger, validBenefitRequestFunc, validBudgetFunc, validSpentRequestFunc}
 
 export default middleware

@@ -11,7 +11,7 @@ route.get("/select", ctrlBudget.getBenifitsByParamCtrl)
 
 route.get("/:id/transaction", ()=>{})
 
-route.post("/:id/spend", ()=>{})
+route.post("/:id/spend",middleware.validSpentRequestFunc, ctrlBudget.addSpentCtrl)
 
 
 export default route

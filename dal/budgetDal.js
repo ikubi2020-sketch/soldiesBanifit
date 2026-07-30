@@ -36,26 +36,52 @@ async function getBenifitsByParam(myParams) {
         throw error
     }};
 
-    
+
+
+async function checkForBudgetId(searchId) {
+     console.log("enter dal checkForBudgetId")
+    try {
+        const result = await budgetDb.from("budget_alloction").select().eq("id", searchId)
+        console.log(result.data)
+        return result.data
+    } catch (error) { 
+        console.log(error) 
+        throw error
+    }};
+ 
 
 async function addSpend(spendRequest, id) {
     console.log("enter dal addSpend");
     try {
         const date = new Date
+        console.log(spendRequest)
         const spendBuild = {
-            budgetID = id,
+            budgetID : id,
             amount : spendRequest.amount,
-            createdAT =  date,
+            createdAT :  date,
             reseon : spendRequest.reason
         }
         spendRequest.createdAT =  date
         const result =  await budgetDb.from("spend_transaction").insert(spendBuild).select()
-        return result
+        return result.data
     } catch (error) {
         console.log(error)  
         throw error
     }};
 
-const budgetDal = {addUnitBudget, getBenifitsByParam, addSpend}
+
+
+async function geAllSpendsById(searchId) {
+    console.log("enter dal geAllSpends");
+    try {
+        const result =  await budgetDb.from("spend_transaction").select().eq("budgetID", searchId)
+        console.log(result.data)
+        return result.data
+    } catch (error) {
+        console.log(error)  
+        throw error
+    }};
+
+const budgetDal = {addUnitBudget, getBenifitsByParam, addSpend, checkForBudgetId, geAllSpendsById}
 
 export default budgetDal

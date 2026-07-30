@@ -7,7 +7,7 @@ async function addUnitBudgetCtrl(req, res) {
         res.status(200).json({message : "success" , "result" : result})
     } catch (error) {
         console.log(error)  
-        res.status(400).json(message)
+        res.status(400).json("something went wrong")
     }
 }
 
@@ -20,10 +20,25 @@ async function getBenifitsByParamCtrl(req, res) {
         res.status(200).json({message : "success" , "result" : result})
     } catch (error) {
         console.log(error)  
-        res.status(400).json(message)
+        res.status(400).json("something went wrong")
     }
 }
 
-const ctrlBudget = {addUnitBudgetCtrl, getBenifitsByParamCtrl}
+
+async function addSpentCtrl(req, res) {
+    console.log("enter getBenifitsByParamCtrl")
+    try {
+        const {id} = req.params
+        const  data  = req.body
+        console.log(data)
+        const result = await budgetService.AddBenifitsServ(data, id)
+        res.status(200).json({message : "success" , "result" : result})
+    } catch (error) {
+        console.log(error)  
+        res.status(400).json("something went wrong")
+    }
+}
+
+const ctrlBudget = {addUnitBudgetCtrl, getBenifitsByParamCtrl, addSpentCtrl}
 
 export default ctrlBudget
