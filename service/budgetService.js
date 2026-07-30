@@ -40,6 +40,19 @@ async function AddBenifitsServ(spendRequest,id) {
 
 function sumSpendingUnit(totalSpending, oneSpend) {return totalSpending + oneSpend.amount}
 
-const budgetService = {addUnitBudgetServ, getBenifitsServ, AddBenifitsServ}
+
+
+async function getSpendsByIdServ(id) {
+    try {
+        const result = await budgetDal.geAllSpendsById(id)
+        return result
+    } catch (error) {
+        console.log(error);
+        throw error
+    }};
+
+
+
+const budgetService = {addUnitBudgetServ, getBenifitsServ, AddBenifitsServ, getSpendsByIdServ}
 
 export default budgetService

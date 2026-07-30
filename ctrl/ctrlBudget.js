@@ -39,6 +39,22 @@ async function addSpentCtrl(req, res) {
     }
 }
 
-const ctrlBudget = {addUnitBudgetCtrl, getBenifitsByParamCtrl, addSpentCtrl}
+
+async function getSpentByIdCtrl(req, res) {
+    console.log("enter getSpentCtrl")
+    try {
+        const {id} = req.params
+        const result = await budgetService.getSpendsByIdServ(id)
+        if(!result){res.status(404).json("not found any spending for with this Id")}
+        res.status(200).json({message : "success" , "result" : result})
+    } catch (error) {
+        console.log(error)  
+        res.status(400).json("something went wrong")
+    }
+}
+
+
+
+const ctrlBudget = {addUnitBudgetCtrl, getBenifitsByParamCtrl, addSpentCtrl, getSpentByIdCtrl}
 
 export default ctrlBudget

@@ -7,9 +7,9 @@ const route = express.Router()
 
 route.post("/", middleware.validBudgetFunc, ctrlBudget.addUnitBudgetCtrl)
 
-route.get("/select", ctrlBudget.getBenifitsByParamCtrl)
+route.get("/", ctrlBudget.getBenifitsByParamCtrl)
 
-route.get("/:id/transaction", ()=>{})
+route.get("/:id/transaction", ctrlBudget.getSpentByIdCtrl)
 
 route.post("/:id/spend",middleware.validSpentRequestFunc, ctrlBudget.addSpentCtrl)
 
